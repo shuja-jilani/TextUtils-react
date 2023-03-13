@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Textform from "./components/Textform";
 import React, { useState } from "react";
 import Alert from "./components/Alert";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // app js me jo kuch likha hoga wo npm start krne ke baad humari site dikhaegi
 //JSX hota ye h ki hoti to html hi h bs js ka mukut pehna hota h, jsx humare function ke return ke () ke andr likhi jaati h
@@ -91,11 +91,12 @@ function App() {
         <Alert alert={alert} />
         <div className="container my-3">
           <Routes>
-            <Route path="/about" element ={<About/>}>
+            <Route path="/about" element ={<About mode={mode}/>}>
             </Route>
-            <Route path="/" element ={<Textform
+            <Route path="/" element ={
+            <Textform
                 showAlert={showAlert}
-                heading="Enter the text to analyze below"
+                heading="Try TextUtils - Word Counter, Character Counter, Text to speech"
                 mode={mode}
               />}>
               

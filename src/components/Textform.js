@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 
 export default function Textform(props) {
+    
     const handleUpClick = () => {
         // console.log("UpperCase was clicked"+ text);
         // setText("You have clicked on handleUpClick"); //qki text useState me h aur setText usko update krne ka function h
@@ -42,6 +43,7 @@ export default function Textform(props) {
 
     const copyText =() =>{
         navigator.clipboard.writeText(text);
+        // document.getSelection().removeAllRanges();
         props.showAlert("Copied", "success");
     }
 
@@ -56,26 +58,27 @@ export default function Textform(props) {
   return (
     <>
     <div className="container" style={{color: props.mode==='dark'?'white':'black'}}>
-    <h1>{props.heading}</h1>
+    <h1 className='mb-4'>{props.heading}</h1>
 <div className="mb-3">
 <textarea className="form-control" value = {text} onChange= {handleOnChange} style={{backgroundColor: props.mode==='dark'?'grey':'white',
 color: props.mode==='light'? 'black':'white'}} id="myBox" rows="8"></textarea>
 </div>
-<button className="btn btn-primary" onClick={handleUpClick}>Convert to Uppercase</button>
-<button className="btn btn-primary mx-2" onClick={handlelowClick}>Convert to LowerCase</button>
-<button className="btn btn-primary mx-2" onClick={handlefirstletClick}>Convert first letter to UpperCase</button>
-<button type='submit' className="btn btn-primary mx-2" onClick={handleSpeak}>Speak</button>
-<button type='submit' className="btn btn-primary mx-2" onClick={copyText}>Copy</button>
-<button className="btn btn-primary mx-2" onClick={handleclearClick}>Clear text</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Convert to Uppercase</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handlelowClick}>Convert to LowerCase</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handlefirstletClick}>Convert first letter to UpperCase</button>
+<button disabled={text.length===0} type='submit' className="btn btn-primary mx-1 my-1" onClick={handleSpeak}>Speak</button>
+<button disabled={text.length===0} type='submit' className="btn btn-primary mx-1 my-1" onClick={copyText}>Copy</button>
+<button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleclearClick}>Clear text</button>
 </div>
 <div className="container my-3"  style={{color: props.mode==='dark'?'white':'black'}}>
     <h2>Your text summary</h2>
-    <p>{text.split(" ").length-1} words and {text.length} characters</p>
-    <p>{0.008* (text.split(" ").length-1)} Minutes read </p>
+    <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and {text.length} characters</p> 
+    <p>{0.008* (text.split(" ").filter((element)=>{return element.length!==0}).length)} Minutes read </p>
     <h2>Preview</h2>
-    <p>{text.length>0?text:"Enter something in the textbox to preview here"}</p>
+    <p>{text.length>0?text:"Nothing to preview"}</p>
 </div>
 
 </>
   )
 }
+//filter function returns a boolean value agr wo satisfy hoga to split wali array me wo chiz ajaegi, hum spaces count nhi kr rhe hn ab hum words count kr rhe hn jo bhi us array mein jana chahta h uski length check hogi aur dala jaega, naa ki spaces count honge
